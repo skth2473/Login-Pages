@@ -115,6 +115,28 @@ export default function Home() {
       <div className="fixed bottom-4 right-4 text-xs text-[#00d4ff]/40 font-mono">
         [AUDIO ENABLED]
       </div>
+
+      <div className="fixed bottom-4 left-4 text-xs text-[#00d4ff]/60 font-mono flex flex-col gap-1 z-50">
+        <div>&copy; {new Date().getFullYear()} Made by Sarthak Kumar Thakur</div>
+        <div className="flex gap-4">
+          <a 
+            href="https://github.com/skth2473" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-[#00d4ff] hover:underline transition-all"
+          >
+            GitHub
+          </a>
+          <a 
+            href="https://www.linkedin.com/in/sarthak-kumar-thakur-097498231/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-[#00d4ff] hover:underline transition-all"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </div>
     </main>
   );
 }
