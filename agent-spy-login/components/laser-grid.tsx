@@ -1,13 +1,21 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 interface LaserGridProps {
   mousePos: { x: number; y: number };
 }
 
 export default function LaserGrid({ mousePos }: LaserGridProps) {
   const gridSize = 40;
-  const rows = Math.ceil(window.innerHeight / gridSize) + 2;
-  const cols = Math.ceil(window.innerWidth / gridSize) + 2;
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    const handleResize = () => setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -15,7 +23,7 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
         width="100%"
         height="100%"
         className="w-full h-full"
-        viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}
+        viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
         preserveAspectRatio="none"
       >
         <defs>
@@ -35,7 +43,7 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
         </defs>
 
         {/* Horizontal laser lines */}
-        {Array.from({ length: Math.ceil(window.innerHeight / gridSize) }).map((_, i) => (
+        {Array.from({ length: Math.ceil(dimensions.height / gridSize) }).map((_, i) => (
           <g key={`h-${i}`}>
             <line
               x1="0"
@@ -69,7 +77,7 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
         ))}
 
         {/* Vertical laser lines */}
-        {Array.from({ length: Math.ceil(window.innerWidth / gridSize) }).map((_, i) => (
+        {Array.from({ length: Math.ceil(dimensions.width / gridSize) }).map((_, i) => (
           <g key={`v-${i}`}>
             <line
               x1={i * gridSize}
