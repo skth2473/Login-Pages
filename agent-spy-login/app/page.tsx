@@ -75,10 +75,10 @@ export default function Home() {
 
       <LaserGrid mousePos={mousePos} />
 
-      {/* Main content container */}
+      
       <div className="relative z-10 h-screen w-full flex items-center justify-center px-4">
         <div className="flex w-full max-w-6xl gap-12 items-center justify-center">
-          {/* Left side - Scanner visualizations */}
+          
           <div className="hidden lg:flex flex-col gap-8 items-center justify-center w-1/3">
             <RetinaScanner isActive={status === 'scanning' || status === 'success'} />
             <FingerprintScanner isActive={status === 'scanning'} />
