@@ -21,19 +21,15 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
 
   return (
     <div className={`relative w-full max-w-md ${status === 'error' ? 'animate-alarm-shake' : ''}`}>
-      {/* Glassmorphism panel */}
       <div className="border-2 border-[#ff0000]/30 bg-[#1a1f3a]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl relative overflow-hidden">
-        {/* Status indicator - Success glow */}
         {status === 'success' && (
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff00]/20 to-transparent animate-pulse pointer-events-none"></div>
         )}
 
-        {/* Error overlay */}
         {status === 'error' && (
           <div className="absolute inset-0 bg-[#ff0000]/10 animate-alarm-flash pointer-events-none"></div>
         )}
 
-        {/* Header */}
         <div className="mb-8 text-center border-b border-[#ff0000]/20 pb-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Lock className="w-6 h-6 text-[#ff0000]" />
@@ -47,7 +43,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
           </p>
         </div>
 
-        {/* Status messages */}
         {status === 'scanning' && (
           <div className="mb-6 p-4 bg-[#00d4ff]/10 border border-[#00d4ff]/30 rounded-lg">
             <p className="text-center text-[#00d4ff] text-sm font-mono animate-pulse">
@@ -76,9 +71,7 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={onSubmit} className="space-y-6">
-          {/* Agent ID Field */}
           <div>
             <label className="block text-xs uppercase tracking-widest text-[#00d4ff] mb-3 font-mono">
               Agent ID
@@ -97,8 +90,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
               </div>
             </div>
           </div>
-
-          {/* Security Code Field */}
           <div>
             <label className="block text-xs uppercase tracking-widest text-[#00d4ff] mb-3 font-mono">
               Security Code
@@ -117,8 +108,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
               </div>
             </div>
           </div>
-
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={status === 'scanning' || status === 'success' || !agentId || !securityCode}
@@ -132,7 +121,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
             )}
           </button>
 
-          {/* Secondary Action */}
           {status === 'error' && (
             <button
               type="button"
@@ -154,7 +142,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
           )}
         </form>
 
-        {/* Bottom decorative line */}
         <div className="mt-8 pt-6 border-t border-[#ff0000]/10">
           <p className="text-xs text-[#64748b] font-mono text-center tracking-widest">
             CLASSIFIED SYSTEM • USE AUTHORIZED ONLY
@@ -162,7 +149,6 @@ export default function LoginPanel({ status, onSubmit, onReset }: LoginPanelProp
         </div>
       </div>
 
-      {/* Outer glow effect */}
       <div className="absolute -inset-2 bg-gradient-to-r from-[#ff0000]/20 to-[#00d4ff]/20 rounded-2xl blur-xl -z-10 opacity-50"></div>
     </div>
   );

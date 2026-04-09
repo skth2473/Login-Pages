@@ -42,7 +42,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
           </filter>
         </defs>
 
-        {/* Horizontal laser lines */}
         {Array.from({ length: Math.ceil(dimensions.height / gridSize) }).map((_, i) => (
           <g key={`h-${i}`}>
             <line
@@ -55,7 +54,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
               opacity="0.15"
               vectorEffect="non-scaling-stroke"
             />
-            {/* Animated scanning beam */}
             {i % 3 === 0 && (
               <line
                 x1="0"
@@ -76,7 +74,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
           </g>
         ))}
 
-        {/* Vertical laser lines */}
         {Array.from({ length: Math.ceil(dimensions.width / gridSize) }).map((_, i) => (
           <g key={`v-${i}`}>
             <line
@@ -89,7 +86,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
               opacity="0.15"
               vectorEffect="non-scaling-stroke"
             />
-            {/* Animated vertical beams */}
             {i % 4 === 0 && (
               <line
                 x1={i * gridSize}
@@ -109,10 +105,8 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
           </g>
         ))}
 
-        {/* Mouse-tracking laser beam */}
         {mousePos.x > 0 && mousePos.y > 0 && (
           <>
-            {/* Horizontal beam */}
             <line
               x1="0"
               y1={mousePos.y}
@@ -124,7 +118,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
               filter="url(#glow)"
               vectorEffect="non-scaling-stroke"
             />
-            {/* Vertical beam */}
             <line
               x1={mousePos.x}
               y1="0"
@@ -136,7 +129,6 @@ export default function LaserGrid({ mousePos }: LaserGridProps) {
               filter="url(#glow)"
               vectorEffect="non-scaling-stroke"
             />
-            {/* Crosshair intersection */}
             <circle
               cx={mousePos.x}
               cy={mousePos.y}

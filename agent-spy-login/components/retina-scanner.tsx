@@ -8,20 +8,16 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="relative w-40 h-40">
-        {/* Main scanner circle background */}
         <svg
           width="160"
           height="160"
           viewBox="0 0 160 160"
           className="absolute inset-0"
         >
-          {/* Silhouette eye */}
           <ellipse cx="80" cy="80" rx="45" ry="55" fill="#1a1f3a" opacity="0.3" />
 
-          {/* Eye pupil */}
           <circle cx="80" cy="80" r="20" fill="#ff0000" opacity="0.2" />
 
-          {/* Retina pattern lines */}
           {isActive && (
             <>
               <circle
@@ -46,7 +42,6 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
           )}
         </svg>
 
-        {/* Animated scanning rings */}
         {isActive && (
           <>
             <svg
@@ -67,7 +62,6 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
               />
             </svg>
 
-            {/* Secondary ring animation */}
             <svg
               width="160"
               height="160"
@@ -87,7 +81,6 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
               />
             </svg>
 
-            {/* Tertiary ring animation */}
             <svg
               width="160"
               height="160"
@@ -109,13 +102,9 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
           </>
         )}
 
-        {/* Crosshair */}
         <svg width="160" height="160" viewBox="0 0 160 160" className="absolute inset-0">
-          {/* Vertical line */}
           <line x1="80" y1="20" x2="80" y2="140" stroke="#00d4ff" strokeWidth="1" opacity="0.3" />
-          {/* Horizontal line */}
           <line x1="20" y1="80" x2="140" y2="80" stroke="#00d4ff" strokeWidth="1" opacity="0.3" />
-          {/* Corner markers */}
           <line x1="30" y1="30" x2="50" y2="30" stroke="#00d4ff" strokeWidth="1.5" opacity="0.5" />
           <line x1="30" y1="30" x2="30" y2="50" stroke="#00d4ff" strokeWidth="1.5" opacity="0.5" />
           <line x1="130" y1="30" x2="110" y2="30" stroke="#00d4ff" strokeWidth="1.5" opacity="0.5" />
@@ -127,7 +116,6 @@ export default function RetinaScanner({ isActive }: RetinaScannerProps) {
         </svg>
       </div>
 
-      {/* Status text */}
       <div className="text-center font-mono text-xs">
         <p className="text-[#00d4ff] uppercase tracking-widest">
           {isActive ? 'RETINA SCAN' : 'Scanner Ready'}
