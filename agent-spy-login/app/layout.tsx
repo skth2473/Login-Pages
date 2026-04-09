@@ -10,10 +10,6 @@ export const metadata: Metadata = {
   title: 'Agent Spy Login',
   description: 'Created by Sarthak thakur',
   generator: 'Sarthak.in',
-  icons: {
-    icon: '/icon.svg',
-    apple: '/icon.svg',
-  },
 }
 
 export default function RootLayout({
