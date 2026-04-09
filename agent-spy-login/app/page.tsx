@@ -27,7 +27,6 @@ export default function Home() {
   }, []);
 
   const playSuccessSound = () => {
-    // Create a simple beep sound using Web Audio API
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
@@ -48,9 +47,8 @@ export default function Home() {
     e.preventDefault();
     setStatus('scanning');
 
-    // Simulate scanning and biometric verification
     setTimeout(() => {
-      const success = Math.random() > 0.3; // 70% success rate for demo
+      const success = Math.random() > 0.3;
       if (success) {
         playSuccessSound();
         setStatus('success');
@@ -70,13 +68,11 @@ export default function Home() {
       ref={containerRef}
       className="min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0a0e27] via-[#0f1629] to-[#0a0e27] relative"
     >
-      {/* Background depth blur effect */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/5 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Animated laser grid background */}
       <LaserGrid mousePos={mousePos} />
 
       {/* Main content container */}
@@ -88,14 +84,12 @@ export default function Home() {
             <FingerprintScanner isActive={status === 'scanning'} />
           </div>
 
-          {/* Center - Login panel */}
           <LoginPanel
             status={status}
             onSubmit={handleSubmit}
             onReset={handleReset}
           />
 
-          {/* Right side - HUD elements */}
           <div className="hidden lg:flex flex-col gap-8 w-1/3 text-xs font-mono text-[#00d4ff]/60">
             <div className="border border-[#00d4ff]/30 p-4 bg-[#1a1f3a]/40 backdrop-blur-md">
               <div className="mb-2 text-[#00d4ff]/80">SYSTEM STATUS</div>
@@ -118,7 +112,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Sound effects indicator */}
       <div className="fixed bottom-4 right-4 text-xs text-[#00d4ff]/40 font-mono">
         [AUDIO ENABLED]
       </div>
