@@ -89,6 +89,12 @@ export default function LoginPage() {
         </div>
       )}
 
+      <div className="absolute bottom-4 left-0 w-full flex justify-center items-center space-x-6 z-50 text-[#722F37] font-bold text-lg drop-shadow-md">
+        <span>Made by Sarthak</span>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="hover:text-red-900 transition-colors">LinkedIn</a>
+        <a href="https://github.com/skth2473" target="_blank" rel="noopener noreferrer" className="hover:text-red-900 transition-colors">GitHub</a>
+      </div>
+
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
