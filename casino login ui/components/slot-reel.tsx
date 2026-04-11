@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const SYMBOLS = ['A', 'B', 'C', 'D', 'E', '1', '2', '3', '4', '5'];
 
