@@ -9,7 +9,6 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Casino Login - Slot Machine Interface',
   description: 'A vibrant casino-themed login interface with slot machine animations, neon lights, and jackpot effects',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
