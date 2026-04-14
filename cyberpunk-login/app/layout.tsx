@@ -18,7 +18,6 @@ const shareTechMono = Share_Tech_Mono({
 export const metadata: Metadata = {
   title: 'NEURAL LINK // ACCESS TERMINAL',
   description: 'Cyberpunk 2077 Style Login Interface',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
