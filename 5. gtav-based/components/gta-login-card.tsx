@@ -17,35 +17,37 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
   const [isLoading, setIsLoading] = useState(false)
   const [cursorVisible, setCursorVisible] = useState(true)
   const [focusedField, setFocusedField] = useState<"username" | "password" | null>(null)
-  const [loadingText, setLoadingText] = useState("AUTHENTICATING...")
+  const [terminalLines, setTerminalLines] = useState<string[]>([])
 
   // Hacking terminal sequence
   useEffect(() => {
     if (!isLoading) {
-      setLoadingText("AUTHENTICATING...")
+      setTerminalLines([])
       return
     }
 
-    const texts = [
+    const allLines = [
+      "[~] INITIATING SECURE CONNECTION...",
       "[~] ESTABLISHING LINK...",
+      "[~] RESOLVING ENCRYPTED IP...",
       "[~] SCANNING DATABASE...",
-      "[~] BYPASSING FIREWALL...",
-      "[~] DECRYPTING HASH...",
-      "[~] VERIFYING TOKEN...",
-      "[~] ELEVATING ACCESS...",
-      "[~] AUTHENTICATING...",
+      "[~] BYPASSING MAINFRAME FIREWALL...",
+      "[~] INJECTING SQL PAYLOAD...",
+      "[~] DECRYPTING USER HASH...",
+      "[~] VERIFYING ACCESS TOKEN...",
+      "[~] ELEVATING PRIVILEGES...",
+      "[~] ACCESS GRANTED."
     ]
 
-    let i = 0
-    setLoadingText(texts[0])
+    let currentLine = 0
+    setTerminalLines([allLines[0]])
+    
     const interval = setInterval(() => {
-      i++
-      if (i < texts.length) {
-        setLoadingText(texts[i])
-      } else {
-        setLoadingText("[~] FINALIZING...")
+      currentLine++
+      if (currentLine < allLines.length) {
+        setTerminalLines(prev => [...prev, allLines[currentLine]])
       }
-    }, 400)
+    }, 450)
 
     return () => clearInterval(interval)
   }, [isLoading])
@@ -65,7 +67,7 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
     setIsLoading(true)
 
     // Simulate authentication
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    await new Promise(resolve => setTimeout(resolve, 5000))
 
     // Demo: "admin" + "password" = success, anything else = wasted
     if (username.toLowerCase() === "admin" && password === "password") {
@@ -110,6 +112,43 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
           `,
         }}
       >
+        {/* Full Card Hacking Terminal Overlay */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-50 p-6 flex flex-col font-mono text-xs sm:text-sm tracking-widest text-[#00ff00] overflow-hidden"
+              style={{
+                background: "rgba(0, 10, 0, 0.95)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <div className="flex items-center gap-2 mb-6 border-b border-[#00ff00]/30 pb-4">
+                <Zap className="w-5 h-5" />
+                <span className="uppercase opacity-80">System Override Initiated</span>
+              </div>
+              <div className="flex-1 overflow-y-auto space-y-2">
+                {terminalLines.map((line, idx) => (
+                  <motion.div 
+                    key={idx}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {line}
+                  </motion.div>
+                ))}
+                <motion.div
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.8 }}
+                  className="w-2.5 h-4 bg-[#00ff00] inline-block align-middle ml-1"
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {/* Scanline overlay on card */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -260,19 +299,12 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
             />
             
             {isLoading ? (
-              <span className="flex items-center justify-center gap-2 overflow-hidden px-2">
+              <span className="flex items-center justify-center gap-2">
                 <span 
                   className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full shrink-0"
                   style={{ animation: "spin 1s linear infinite" }}
                 />
-                <motion.span 
-                  key={loadingText}
-                  initial={{ opacity: 0, x: -5 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="font-mono text-sm sm:text-base tracking-widest truncate"
-                >
-                  {loadingText}
-                </motion.span>
+                AUTHENTICATING...
               </span>
             ) : (
               "INITIATE ACCESS"
