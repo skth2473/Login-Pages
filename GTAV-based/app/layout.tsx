@@ -16,7 +16,6 @@ const shareTech = Share_Tech_Mono({
 export const metadata: Metadata = {
   title: 'GTA V Login',
   description: 'Cinematic GTA V style login experience',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
