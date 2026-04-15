@@ -17,6 +17,38 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
   const [isLoading, setIsLoading] = useState(false)
   const [cursorVisible, setCursorVisible] = useState(true)
   const [focusedField, setFocusedField] = useState<"username" | "password" | null>(null)
+  const [loadingText, setLoadingText] = useState("AUTHENTICATING...")
+
+  // Hacking terminal sequence
+  useEffect(() => {
+    if (!isLoading) {
+      setLoadingText("AUTHENTICATING...")
+      return
+    }
+
+    const texts = [
+      "[~] ESTABLISHING LINK...",
+      "[~] SCANNING DATABASE...",
+      "[~] BYPASSING FIREWALL...",
+      "[~] DECRYPTING HASH...",
+      "[~] VERIFYING TOKEN...",
+      "[~] ELEVATING ACCESS...",
+      "[~] AUTHENTICATING...",
+    ]
+
+    let i = 0
+    setLoadingText(texts[0])
+    const interval = setInterval(() => {
+      i++
+      if (i < texts.length) {
+        setLoadingText(texts[i])
+      } else {
+        setLoadingText("[~] FINALIZING...")
+      }
+    }, 400)
+
+    return () => clearInterval(interval)
+  }, [isLoading])
 
   // Cursor flicker effect
   useEffect(() => {
@@ -33,7 +65,7 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
     setIsLoading(true)
 
     // Simulate authentication
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    await new Promise(resolve => setTimeout(resolve, 3000))
 
     // Demo: "admin" + "password" = success, anything else = wasted
     if (username.toLowerCase() === "admin" && password === "password") {
@@ -228,12 +260,19 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
             />
             
             {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
+              <span className="flex items-center justify-center gap-2 overflow-hidden px-2">
                 <span 
-                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full shrink-0"
                   style={{ animation: "spin 1s linear infinite" }}
                 />
-                AUTHENTICATING...
+                <motion.span 
+                  key={loadingText}
+                  initial={{ opacity: 0, x: -5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="font-mono text-sm sm:text-base tracking-widest truncate"
+                >
+                  {loadingText}
+                </motion.span>
               </span>
             ) : (
               "INITIATE ACCESS"
