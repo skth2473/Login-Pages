@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Lock, User, Eye, EyeOff, Zap } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface GTALoginCardProps {
   onWrongPassword: () => void
@@ -45,7 +46,12 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
   }
 
   return (
-    <div className="relative w-full max-w-md">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="relative w-full max-w-md"
+    >
       {/* Outer glow effect */}
       <div 
         className="absolute -inset-1 rounded-xl opacity-75"
@@ -57,7 +63,10 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
       />
 
       {/* Main Card */}
-      <div 
+      <motion.div 
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         className="relative backdrop-blur-xl rounded-xl border overflow-hidden"
         style={{
           background: "linear-gradient(135deg, rgba(10, 10, 20, 0.85), rgba(20, 20, 40, 0.9))",
@@ -78,7 +87,12 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
         />
 
         {/* Header */}
-        <div className="relative p-6 text-center border-b" style={{ borderColor: "rgba(0, 255, 255, 0.2)" }}>
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="relative p-6 text-center border-b" style={{ borderColor: "rgba(0, 255, 255, 0.2)" }}
+        >
           <div className="flex items-center justify-center gap-2 mb-2">
             <Zap className="w-6 h-6 text-cyan-400" style={{ filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.8))" }} />
             <h1 
@@ -94,12 +108,17 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
           <p className="text-sm text-cyan-300/70 tracking-widest uppercase font-mono">
             Identity Verification Required
           </p>
-        </div>
+        </motion.div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Username Field */}
-          <div className="space-y-2">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.5 }}
+            className="space-y-2"
+          >
             <label 
               className="text-xs tracking-[0.2em] uppercase font-mono flex items-center gap-2"
               style={{ color: "rgba(0, 255, 255, 0.7)" }}
@@ -136,10 +155,15 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
                 </span>
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* Password Field */}
-          <div className="space-y-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            className="space-y-2"
+          >
             <label 
               className="text-xs tracking-[0.2em] uppercase font-mono flex items-center gap-2"
               style={{ color: "rgba(0, 255, 255, 0.7)" }}
@@ -175,10 +199,15 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Submit Button */}
-          <button
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.7 }}
+            whileHover={!(disabled || isLoading || !username || !password) ? { scale: 1.02 } : {}}
+            whileTap={!(disabled || isLoading || !username || !password) ? { scale: 0.98 } : {}}
             type="submit"
             disabled={disabled || isLoading || !username || !password}
             className="relative w-full py-4 rounded-lg font-sans font-bold text-lg tracking-[0.2em] uppercase transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group"
@@ -209,16 +238,24 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
             ) : (
               "INITIATE ACCESS"
             )}
-          </button>
+          </motion.button>
 
           {/* Hint text */}
-          <p className="text-center text-xs text-cyan-300/50 font-mono">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="text-center text-xs text-cyan-300/50 font-mono"
+          >
             Hint: admin / password
-          </p>
+          </motion.p>
         </form>
 
         {/* Footer */}
-        <div 
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
           className="px-6 py-4 text-center border-t"
           style={{ 
             borderColor: "rgba(0, 255, 255, 0.2)",
@@ -232,8 +269,8 @@ export function GTALoginCard({ onWrongPassword, onSuccess, disabled }: GTALoginC
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-xs text-green-400/70 font-mono">SECURE</span>
           </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   )
 }
